@@ -12,6 +12,8 @@ module.exports = {
         port: 8087,
         open: true,
         hot: true,
+        compress: true,
+        historyApiFallback: true,
         client: {
             overlay: {
                 errors: false,

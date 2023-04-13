@@ -21,7 +21,8 @@ module.exports = {
     resolve: {
         alias: {
             '@': path.join(absolutePath, 'src'),
-        }
+        },
+        extensions: ['.js', '.jsx', '.json'],
     },
     module: {
         rules: [
@@ -87,6 +88,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: true,
@@ -98,18 +100,19 @@ module.exports = {
                 collapseWhitespace: true
             }
         }),
-        new ModuleFederationPlugin({
-            name: 'app01',
-            filename: 'remoteEntry.js',
-            library: { type: "var", name: "app01" }, // 
-            exposes: {
-                './tools': path.join(absolutePath, 'src/tools.js'),
-            },
-        })
+        // new ModuleFederationPlugin({
+        //     name: 'app01',
+        //     filename: 'remoteEntry.js',
+        //     library: { type: "var", name: "app01" }, // 
+        //     exposes: {
+        //         './tools': path.join(absolutePath, 'src/tools.js'),
+        //     },
+        // })
     ],
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: "all",
-    //     }
-    // }
+    optimization: {
+        // usedExports: false,
+        splitChunks: {
+            chunks: "all",
+        }
+    }
 }
